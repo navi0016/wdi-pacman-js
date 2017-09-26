@@ -68,7 +68,6 @@ function displayMenu() {
    for (var i = 0; i < ghosts.length; i++) {
     console.log('('+(i+1)+')'+' Eat '+ ghosts[i]['name']);
   }
-
   console.log('(q) Quit');
 }
 
@@ -84,6 +83,19 @@ function eatDot() {
   score += 10;
 }
 
+function eatGhost(ghost) {
+  if (ghost.edible === false) {
+        console.log(' ' + ghost.name + ' ' + ghost.colour + ' ' + ' kills Pac-Man!');
+        lives -= 1;
+        OutofLives()
+      }
+}
+function OutofLives() {
+  if (lives < 0) {
+    process.exit()
+  }
+}
+
 
 // Process Player's Input
 function processInput(key) {
@@ -94,6 +106,18 @@ function processInput(key) {
       break;
     case 'd':
       eatDot();
+      break;
+    case '1':
+      eatGhost(inky);
+      break;
+    case '2':
+      eatGhost(blinky);
+      break;
+    case '3':
+      eatGhost(pinky);
+      break;
+    case '4':
+      eatGhost(clyde);
       break;
     default:
       console.log('\nInvalid Command!');
@@ -118,7 +142,7 @@ drawScreen();
 stdin.on('data', function(key) {
   process.stdout.write(key);
   processInput(key);
-  setTimeout(drawScreen, 300); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
+  setTimeout(drawScreen, 900); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
 });
 
 // Player Quits
