@@ -68,6 +68,7 @@ function displayStats() {
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  console.log('(p) Eat Power-Pellets');
    for (var i = 0; i < ghosts.length; i++) {
     console.log('('+(i+1)+')'+' Eat '+ ghosts[i]['name']);
   }
@@ -90,13 +91,21 @@ function eatGhost(ghost) {
   if (ghost.edible === false) {
         console.log(' ' + ghost.name + ' ' + ghost.colour + ' ' + ' kills Pac-Man!');
         lives -= 1;
-        OutofLives()
+        outofLives()
       }
 }
-function OutofLives() {
+function outofLives() {
   if (lives < 0) {
     process.exit()
   }
+}
+function eatPowerPellet() {
+  console.log('\nMUNCH!');
+  score += 50;
+  powerPellets -=1;
+  for (var i = 0; i < ghosts.length; i++) {
+   (ghosts[i]['edible'] = true);
+ }
 }
 
 
@@ -109,6 +118,9 @@ function processInput(key) {
       break;
     case 'd':
       eatDot();
+      break;
+    case 'p':
+      eatPowerPellet();
       break;
     case '1':
       eatGhost(inky);
