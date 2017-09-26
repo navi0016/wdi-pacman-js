@@ -68,11 +68,23 @@ function displayStats() {
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  if (powerPellets > 0) {
   console.log('(p) Eat Power-Pellets');
+  }
    for (var i = 0; i < ghosts.length; i++) {
-    console.log('('+(i+1)+')'+' Eat '+ ghosts[i]['name']);
+    console.log('('+(i+1)+')'+' Eat '+ ghosts[i]['name'] + ' '+ edibleStatus(ghosts[i]['edible']));
   }
   console.log('(q) Quit');
+}
+
+function edibleStatus(edibleState) {
+  if (edibleState === true) {
+    return 'edible';
+  }
+  else {
+    return 'inedible';
+  }
+
 }
 
 function displayPrompt() {
@@ -93,6 +105,11 @@ function eatGhost(ghost) {
         lives -= 1;
         outofLives()
       }
+  else {
+    console.log('Pac-Man eats ' + ghost.character + ' ' + ghost.name );
+    score += 200;
+    ghost.edible = false;
+  }
 }
 function outofLives() {
   if (lives < 0) {
@@ -105,7 +122,14 @@ function eatPowerPellet() {
   powerPellets -=1;
   for (var i = 0; i < ghosts.length; i++) {
    (ghosts[i]['edible'] = true);
+   outOfPowerPellets()
  }
+}
+
+function outOfPowerPellets() {
+  if (powerPellets < 0){
+    console.log('No Power-Pellets left!')
+  }
 }
 
 
