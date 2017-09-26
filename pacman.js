@@ -60,9 +60,15 @@ function displayStats() {
   console.log('Score: ' + score + '     Lives: ' + lives);
 }
 
+
+
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+   for (var i = 0; i < ghosts.length; i++) {
+    console.log('('+(i+1)+')'+' Eat '+ ghosts[i]['name']);
+  }
+
   console.log('(q) Quit');
 }
 
